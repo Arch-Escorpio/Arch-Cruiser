@@ -1,0 +1,99 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 1
+        color_good = "#2AA198"
+        color_bad = "#586E75"
+        color_degraded = "#DC322F"
+}
+
+order += "window_title_async"
+order += "cmus"
+#order += "mpd_status"
+order += "air_quality"
+order += "cpu_temperature 0"
+order += "cpu_usage"
+#order += "ipv6"
+order += "disk /"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+#order += "load"
+order += "tztime local"
+order += "volume_status"
+
+window_title_async {
+    format = '{title}'
+    always_show = 'True'
+    max_width = 78
+}
+
+cmus {
+        cache_timeout = 0.1
+        button_previous = 8
+        button_next = 9
+        sleep_timeout = 0.1
+}
+
+mpd_status {
+           cache_timeout = 0.1
+}
+
+air_quality {
+        auth_token = '522e35cfcbd07813d51af609f087d203f525a1f4'
+        location = '@8128'
+        format = ' Wrocław: {aqi} {category}'
+}
+
+cpu_temperature 0 {
+        format = " %degrees °C"
+        path = "/sys/class/hwmon/hwmon0/temp1_input"
+}
+
+cpu_usage {
+        format = " %usage"
+}
+load {
+        format = " load %1min "
+        # max_threshold = 0.3
+}
+
+wireless _first_ {
+#       format_up = "W: (%quality at %essid) %ip"
+        format_up = " %essid %quality "
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        # if you use %speed, i3status requires root privileges
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "  %status %percentage %remaining"
+}
+
+tztime local {
+        format = " %Y-%m-%d %H:%M:%S"
+}
+
+#load {
+#        format = "%1min"
+#}
+
+disk "/" {
+        format = " %avail"
+}
+
+volume_status {
+        cache_timeout = 0.1
+        format = "{percentage}%"
+}
