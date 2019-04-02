@@ -8,7 +8,11 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-export XDG_CURRENT_DESKTOP="i3"
+#export XDG_CURRENT_DESKTOP="i3"
+
+# Use bash-completion, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
 
 #screenfetch
 neofetch
@@ -36,7 +40,7 @@ alias up_pac='sudo pacman -Syu'
 # Update aur
 alias up_aur='trizen -Su --aur'
 
-# up_all probably
+# up_all 
 alias up_all='trizen -Syu'
 
 # up_all no confirm
@@ -90,3 +94,12 @@ alias player='ncmpcpp'
 # touchpad
 alias tpad_off='xinput --set-prop "Elan Touchpad" "Device Enabled" 0'
 alias tpad_on='xinput --set-prop "Elan Touchpad" "Device Enabled" 1'
+
+# random_wallpaper_nitrogen
+alias random_wall='~/scripts/random_wallp.sh'
+
+# go up in directory
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
