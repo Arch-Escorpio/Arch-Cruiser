@@ -43,16 +43,26 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+m exec morc_menu
+
+#start rofi (run mode)
 bindsym $mod+z exec rofi -show run -lines 3 -bw 1 -font "Cantarell 18" -opacity "75"
-bindsym $mod+x exec rofi -show window -lines 3 -bw 1 -font "Cantarell 18" -opacity "75"
+
+#start rofi (window mode)
+bindsym $mod+Tab exec rofi -show window -lines 10 -eh 1 -width 50 -padding 50 -opacity "75" -font "Cantarell 18"
+
+# start rofi (dmenu mode)
+bindsym $mod+x exec i3-dmenu-desktop --dmenu='rofi -dmenu -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "75" -font "Cantarell 18"'  
+
+# toggle touchpad
+bindsym XF86TouchpadToggle exec ~/scripts/touchpad_toggle.sh
 
 # Screen brightness controls
 #bindsym XF86MonBrightnessUp exec "xbacklight -inc 5; notify-send 'brightness up'"
 #bindsym XF86MonBrightnessDown exec "xbacklight -dec 5; notify-send 'brightness down'"
 
 # Keyboard backlight controll
-bindsym $mod+Shift+o exec /usr/local/bin/kb-light.py +
-bindsym $mod+Shift+p exec /usr/local/bin/kb-light.py -
+#bindsym $mod+Shift+o exec /usr/local/bin/kb-light.py +
+#bindsym $mod+Shift+p exec /usr/local/bin/kb-light.py -
 
 # Volume controls (Pulseaudio)
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +1% #increase sound volume
@@ -133,6 +143,9 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+# open app on specific workspace
+assign [class="cmus"] $workspace 1
+
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
@@ -144,13 +157,13 @@ bindsym $mod+t [title="^xfcescratch"] scratchpad show; [title="^xfcescratch"] mo
 
 # terminal with own title to scratch on startup
 for_window [title="^xfcescratch"] move scratchpad 
-bindsym $mod+q exec --no-startup-id xfce4-terminal -T xfcescratch
+bindsym $mod+Control+q exec --no-startup-id xfce4-terminal -T xfcescratch
 
 # Update from kalu move to scratchpad
 for_window [title="^up_all"] floating enable 
 
 # Show terminal Calcurse if any
-# bindsym $mod+y exec --no-startup-id xfce4-terminal -T Calcurse -x calcurse
+bindsym $mod+Control+c exec --no-startup-id xfce4-terminal -T Calcurse -x calcurse
 for_window [title="^Calcurse"] move scratchpad
 bindsym $mod+c [title="^Calcurse"] scratchpad show; [title="^Calcurse"] move position center
 
@@ -159,6 +172,10 @@ for_window [title="^mpsyt"] move scratchpad
 for_window [title="^mpsyt"] floating enable
 bindsym $mod+Control+s exec --no-startup-id xfce4-terminal -T mpsyt -x mpsyt
 bindsym $mod+y [title="^mpsyt"] scratchpad show
+
+# Open by extra keyboard keys
+bindsym XF86WWW exec --no-startup-id qutebrowser
+bindsym XF86Tools exec --no-startup-id xfce4-terminal -x cmus
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -214,7 +231,10 @@ for_window [class="Xfce4-taskmanager"] floating enable border normal
 for_window [class="Gnome-system-monitor"] floating enable border normal
 for_window [class="Xsensors"] floating enable border normal
 for_window [class="Arandr"] floating enable
-for_window [class="Xarchiver"] floating enabl
+for_window [class="Xarchiver"] floating enable
+for_window [class="Galculator"] floating enable border normal
+for_window [class="Pamac-manager"] floating enable
+for_window [class="SpeedCrunch"] floating enable border normal
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -250,9 +270,7 @@ bindsym $mod+shift+Delete exec betterlockscreen -l
 
 # Autostarted applications
 
-# cyan conky theme for dark wallpapers
-exec --no-startup-id conky -c ~/.config/conky/conky1.conf
-exec --no-startup-id conky -c ~/.config/conky/conky_clock_cyan.conf
+
 # conky shortcuts
 # exec --no-startup-id conky -c ~/.config/conky/conky2.conf
 # conky for white-blue wallpapers; 
@@ -265,10 +283,18 @@ exec --no-startup-id caffeine
 exec --no-startup-id nm-applet
 exec --no-startup-id pa-applet
 exec --no-startup-id nitrogen --restore; sleep 1; 
-exec --no-startup-id compton -f --config ~/.config/i3/compton.conf -b
+exec --no-startup-id compton --config ~/.config/i3/compton.conf -b
 exec --no-startup-id dunst
 exec --no-startup-id kalu
 exec --no-startup-id xfce4-terminal -T xfcescratch
-exec --no-startup-id xfce4-terminal -T Calcurse -x calcurse; sleep 5
+exec --no-startup-id xfce4-terminal -T Calcurse -x calcurse; sleep 5;
 exec --no-startup-id g15macro
 exec --no-startup-id xfce4-terminal -T mpsyt -x mpsyt
+exec --no-startup-id xset s 900 900 ; xest dpms 900 900 900
+
+# cyan conky theme for dark wallpapers
+exec --no-startup-id conky -c ~/.config/conky/conky1.conf; sleep 1;
+exec --no-startup-id conky -c ~/.config/conky/conky_clock_cyan.conf; sleep 1;
+
+# nitrogen random wallpaper every 30 seconds
+# exec --no-startup-id ~/scripts/random_wallp.sh ; sleep 1;
