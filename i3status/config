@@ -47,7 +47,7 @@ mpd_status {
 }
 
 air_quality {
-        auth_token = '522e35cfcbd07813d51af609f087d203f525a1f4'
+        auth_token = 'PUT YOUR TOKEN HERE'
         location = '@8128'
         format = ' Wrocław: {aqi} {category}'
 }
