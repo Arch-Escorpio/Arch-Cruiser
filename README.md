@@ -1,2 +1,4 @@
 # configs
-*** to be placed in folders***
+**
+to be placed in folders
+**
